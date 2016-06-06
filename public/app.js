@@ -22,7 +22,7 @@ var main = function(){
 // console.log(quotes);
 var button = document.getElementById('add-button');
 console.log(button);
-button.onclick = handleClick;
+button.onclick = validate;
 
 var qa = [];
 // quotes.hidden = true;
@@ -130,3 +130,23 @@ Quote.prototype.text = function(){
 Quote.prototype.cite = function(){
     return this.cite;
 };
+
+function validate()
+     {
+
+        if( document.quoteform.text.value == "" )
+        {
+           alert( "Please provide a quote!" );
+           document.quoteform.text.focus() ;
+           return false;
+        }
+        if( document.quoteform.author.value == "" )
+        {
+           alert( "Please provide an author!" );
+           document.quoteform.author.focus() ;
+           return false;
+        }
+
+        handleClick();
+     }
+  //-->

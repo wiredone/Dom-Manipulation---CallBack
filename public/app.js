@@ -43,7 +43,9 @@ var handleClick = function(){
   var author = input_cite.value;
   var quote = new Quote({text:text, author:author});
   // console.log (text); WHY?WHAT?
+  quotes.push(quote)
   createQuote(quote)
+  // window.location.reload()
 }
 
 function createQuote(quote){
@@ -51,6 +53,7 @@ function createQuote(quote){
   // console.log(quote.type);
   var quoteArticle = document.createElement('article');
   quoteArticle.classList.add('quote');
+
   var blockQuote = document.createElement('blockquote');
   // formatte if no full stop, space, first letter
     blockQuote.innerText = quote.text + " ";
@@ -59,10 +62,25 @@ function createQuote(quote){
     // console.log(quote);
 
     blockQuote.appendChild(cite);
-    // };
+
+
     quoteArticle.appendChild(blockQuote);
+    var deletebox = document.createElement('INPUT');
+    deletebox.setAttribute("type", "checkbox");
+    deletebox.id=quote.text
+    blockQuote.appendChild(deletebox);
+
+    // checkbox.id="myCheck" update this to be dynamic
+    // Checkbox: <input type="checkbox" id="myCheck">
+    // };
+    // quoteArticle.classList.add('deletebox');
+
+
+
     var quotes = document.querySelector('#quotes');
     quotes.appendChild(quoteArticle);
+
+
     // console.log(quote);
 
 }

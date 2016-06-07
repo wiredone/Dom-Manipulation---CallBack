@@ -3,29 +3,14 @@ window.onload = function(){
 }
 
 var main = function(){
-  // console.log("Inside Main");
-//   var element = document.getElementById('quote-of-the-day');
-//   console.log(element);
-//   var button = document.getElementsByTagName('button')
-//   console.log(button);
-//   var qotd = document.querySelector('#quote-of-the-day');
-// console.log(qotd);
-// // qotd.style.visibility = 'hidden';
-// qotd.style.display = 'none';
-//
-// var buttons = document.getElementsByTagName('button');
-// console.log(buttons[0]);
 
-// var quotes = document.getElementsByClassName('quote');
-// console.log(quotes[quotes.length-1].children[0].innerText);
-// console.log(quotes[quotes.length-1]);
-// console.log(quotes);
 var button = document.getElementById('add-button');
 console.log(button);
 button.onclick = validate;
 
-var qa = [];
-// quotes.hidden = true;
+var del = document.getElementById('delbutt');
+console.log(del);
+del.onclick = myDelete;
 
 var articles = document.getElementsByTagName('article');
   for (var i = 0; i < articles.length; i++) {
@@ -35,8 +20,6 @@ var articles = document.getElementsByTagName('article');
 }
 
 var handleClick = function(){
-  // console.log(handleClick);
-  // console.log('Woah I was got clicked');
   input_text = document.getElementById( 'quote-text-input');
   input_cite = document.getElementById( 'author-text-input');
   var text = input_text.value;
@@ -45,80 +28,48 @@ var handleClick = function(){
   // console.log (text); WHY?WHAT?
   quotes.push(quote)
   createQuote(quote)
-  // window.location.reload()
 }
 
+var check = "Visual Basic is the way forward, I don't know why we are doing JavaScript";
+
+function deleteAquote(text){
+  deleted = document.getElementById(text);
+  deleted.style.display = 'none';
+}
+
+function myDelete(){
+  var el = document.getElementById('blockQuote');
+  console.log(el);
+   var tops = el.getElementsByTagName('input');
+   for (var i=0, len=tops.length; i<len; i++) {
+      if ( tops[i].type === 'checkbox' ) {
+          tops[i].onclick = function() {
+              console.log(tops);
+          }
+      }
+  }
+}
 function createQuote(quote){
-  // console.log(quote.type);
-  // console.log(quote.type);
   var quoteArticle = document.createElement('article');
   quoteArticle.classList.add('quote');
+  quoteArticle.id=quote.text
 
-  var blockQuote = document.createElement('blockquote');
-  // formatte if no full stop, space, first letter
+var blockQuote = document.createElement('blockquote');
+  // format if no full stop, space, first letter
     blockQuote.innerText = quote.text + " ";
+    blockQuote.id='blockQuote'
     var cite = document.createElement('cite');
     cite.innerText = quote.cite;
-    // console.log(quote);
-
     blockQuote.appendChild(cite);
-
-
     quoteArticle.appendChild(blockQuote);
     var deletebox = document.createElement('INPUT');
     deletebox.setAttribute("type", "checkbox");
     deletebox.id=quote.text
+    deletebox.name='input';
     blockQuote.appendChild(deletebox);
-
-    // checkbox.id="myCheck" update this to be dynamic
-    // Checkbox: <input type="checkbox" id="myCheck">
-    // };
-    // quoteArticle.classList.add('deletebox');
-
-
-
     var quotes = document.querySelector('#quotes');
     quotes.appendChild(quoteArticle);
-
-
-    // console.log(quote);
-
 }
-
-
-
-
-// <article class="quote">
-//   <blockquote>
-//     .
-//     <cite>
-//     </cite>
-//   </blockquote>
-// </article>
-// <article class="quote">
-//   <blockquote>
-//
-//     <cite>
-//       Rick
-//     </cite>
-//   </blockquote>
-// </article>
-// <article class="quote">
-//   <blockquote>
-//
-//     <cite>
-//
-//     </cite>
-//   </blockquote>
-// </article>
-// <article class="quote">
-//   <blockquote>
-//
-//     <cite>
-//
-//     </cite>
-//   </blockquote>
-// </article>
 
 quote1 = new Quote({text:"Visual Basic is the way forward, I don't know why we are doing JavaScript",author:"Jay Chetty"});
 quote2 = new Quote({text:"I used the jQuery diet plugin and lost 10kg in a week.", author:"Keith"});
@@ -129,17 +80,14 @@ quote5 = new Quote({text:"Scaffolding is nothing but a fiery hell.", author:"Val
 quotes = [quote1,quote2,quote3,quote4,quote5];
 
 function createQuotes(quotes){
-  // console.log(quotes);
   for (quote of quotes){
     createQuote(quote);
-    // console.log(quote);
   };
 }
 
 function Quote(quoter){
   this.text = quoter.text;
   this.cite = quoter.author;
-  // console.log(quoter.text);
 }
 
 Quote.prototype.text = function(){
@@ -149,22 +97,16 @@ Quote.prototype.cite = function(){
     return this.cite;
 };
 
-function validate()
-     {
-
-        if( document.quoteform.text.value == "" )
-        {
-           alert( "Please provide a quote!" );
-           document.quoteform.text.focus() ;
-           return false;
-        }
-        if( document.quoteform.author.value == "" )
-        {
-           alert( "Please provide an author!" );
-           document.quoteform.author.focus() ;
-           return false;
-        }
-
-        handleClick();
-     }
-  //-->
+function validate(){
+  if( document.quoteform.text.value == "" ){
+   alert( "Please provide a quote!" );
+   document.quoteform.text.focus() ;
+   return false;
+  }
+  if( document.quoteform.author.value == "" ){
+   alert( "Please provide an author!" );
+   document.quoteform.author.focus() ;
+   return false;
+  }
+  handleClick();
+}

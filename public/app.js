@@ -30,7 +30,7 @@ var handleClick = function(){
   createQuote(quote)
 }
 
-var check = "Visual Basic is the way forward, I don't know why we are doing JavaScript";
+// var check = "Visual Basic is the way forward, I don't know why we are doing JavaScript";
 
 function deleteAquote(text){
   deleted = document.getElementById(text);
